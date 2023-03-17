@@ -46,21 +46,7 @@ const AppBarContent = props => {
         />
       </Box>
       <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
-        {hiddenSm ? null : (
-          <Box
-            component='a'
-            target='_blank'
-            rel='noreferrer'
-            sx={{ mr: 4, display: 'flex' }}
-            href='https://github.com/ciscord/ciscord-admin'
-          >
-            <img
-              height={24}
-              alt='github stars'
-              src='https://img.shields.io/github/stars/ciscord/ciscord-admin?style=social'
-            />
-          </Box>
-        )}
+
         <ModeToggler settings={settings} saveSettings={saveSettings} />
         <NotificationDropdown />
         <UserDropdown />
