@@ -1,6 +1,8 @@
 // ** Next Imports
 import Head from 'next/head'
 import { Router } from 'next/router'
+import { ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 // ** Loader Import
 import NProgress from 'nprogress'
@@ -42,6 +44,15 @@ if (themeConfig.routingLoader) {
   })
 }
 
+const client = new ApolloClient({
+  ssrMode: true,
+  cache: new InMemoryCache(),
+  uri: "https://54.147.200.132/graphql",
+  headers: {
+    authorization: process.browser? `Bearer ${sessionStorage.getItem("token")}` || "" : "",
+  },
+});
+
 // ** Configure JSS & ClassName
 const App = props => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
@@ -50,25 +61,27 @@ const App = props => {
   const getLayout = Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
 
   return (
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
-        <meta
-          name='description'
-          content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
-        />
-        <meta name='keywords' content='Material Design, MUI, Admin Template, React Admin Template' />
-        <meta name='viewport' content='initial-scale=1, width=device-width' />
-      </Head>
+    <ApolloProvider client={client}>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <title>{`${themeConfig.templateName} - Admin Dashboard`}</title>
+          <meta
+            name='description'
+            content={`${themeConfig.templateName}`}
+          />
+          <meta name='keywords' content='Ciscord, Admin Dashboard' />
+          <meta name='viewport' content='initial-scale=1, width=device-width' />
+        </Head>
 
-      <SettingsProvider>
-        <SettingsConsumer>
-          {({ settings }) => {
-            return <ThemeComponent settings={settings}>{getLayout(<Component {...pageProps} />)}</ThemeComponent>
-          }}
-        </SettingsConsumer>
-      </SettingsProvider>
-    </CacheProvider>
+        <SettingsProvider>
+          <SettingsConsumer>
+            {({ settings }) => {
+              return <ThemeComponent settings={settings}>{getLayout(<Component {...pageProps} />)}</ThemeComponent>
+            }}
+          </SettingsConsumer>
+        </SettingsProvider>
+      </CacheProvider>
+    </ApolloProvider>
   )
 }
 
