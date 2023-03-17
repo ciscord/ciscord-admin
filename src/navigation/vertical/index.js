@@ -9,6 +9,7 @@ import CreditCardOutline from 'mdi-material-ui/CreditCardOutline'
 import AccountPlusOutline from 'mdi-material-ui/AccountPlusOutline'
 import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
+import { Logout, AccountGroup, Account } from 'mdi-material-ui'
 
 const navigation = () => {
   return [
@@ -18,24 +19,17 @@ const navigation = () => {
       path: '/'
     },
     {
-      title: 'Account Settings',
-      icon: AccountCogOutline,
-      path: '/account-settings'
+      title: 'Organization',
+      icon: AccountGroup,
+      path: '/organization'
+    },
+    {
+      title: 'Users',
+      icon: Account,
+      path: '/users'
     },
     {
       sectionTitle: 'Pages'
-    },
-    {
-      title: 'Login',
-      icon: Login,
-      path: '/pages/login',
-      openInNewTab: true
-    },
-    {
-      title: 'Register',
-      icon: AccountPlusOutline,
-      path: '/pages/register',
-      openInNewTab: true
     },
     {
       title: 'Error',
@@ -62,15 +56,20 @@ const navigation = () => {
       path: '/cards'
     },
     {
-      title: 'Tables',
-      icon: Table,
-      path: '/tables'
-    },
-    {
       icon: CubeOutline,
       title: 'Form Layouts',
       path: '/form-layouts'
-    }
+    },
+    {
+      title: 'My Account',
+      icon: AccountCogOutline,
+      path: '/settings'
+    },
+    {
+      title: 'Log out',
+      icon: Logout,
+      path: '/login',
+    },
   ]
 }
 
